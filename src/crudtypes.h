@@ -2,6 +2,7 @@
 
 namespace CRUD
 {
+constexpr short ID = 1;
 enum class RESULT
 {
     SUCCESS,
