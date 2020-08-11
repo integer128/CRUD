@@ -1,4 +1,4 @@
-#include "connectionmanager.h"
+﻿#include "connectionmanager.h"
 
 #include <QSqlError>
 #include <QSqlQuery>
@@ -37,13 +37,13 @@ bool ConnectionManager::isValid() const
 ConnectionManager::ConnectionManager()
     : m_managerPrivate(new ConnectionManagerPrivate())
 {
-    const bool setup_result = m_managerPrivate->setup();
+    const bool setup_result {m_managerPrivate->setup()};
     m_managerPrivate->setIsValid(setup_result);
 }
 
 bool ConnectionManagerPrivate::setup()
 {
-    const QString driver = "QSQLITE";
+    const QString driver {"QSQLITE"};
 
     if(!QSqlDatabase::isDriverAvailable(driver))
     {
@@ -59,7 +59,7 @@ bool ConnectionManagerPrivate::setup()
         return false;
     }
 
-    auto* database = new QSqlDatabase(QSqlDatabase::addDatabase(driver));
+    auto* database {new QSqlDatabase(QSqlDatabase::addDatabase(driver))};
     m_database.reset(database);
     m_database->setDatabaseName(m_databasePath);
 
@@ -70,14 +70,15 @@ bool ConnectionManagerPrivate::setup()
                    << " reason:" << m_database->lastError().text();
         return false;
     }
+
     return setupTables();
 }
 
 bool ConnectionManagerPrivate::setupWorkspace()
 {
-    const QString database_name = "";
-    const QString location = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
-    const QString fullpath = location + "/" + database_name;
+    const QString database_name {""};
+    const QString location {QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)};
+    const QString fullpath {location + "/" + database_name};
 
     m_databasePath = fullpath;
 
@@ -95,7 +96,7 @@ bool ConnectionManagerPrivate::setupWorkspace()
 
 bool ConnectionManagerPrivate::setupTables()
 {
-    bool result = true;
+    bool result {true};
 
     std::vector<QSqlQuery> creation_queries
     {

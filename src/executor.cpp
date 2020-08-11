@@ -1,4 +1,4 @@
-#include "executor.h"
+﻿#include "executor.h"
 
 #include <QSqlError>
 #include <QDebug>
@@ -27,13 +27,14 @@ std::pair<RESULT, QSqlQuery> Executor::execute(const QString &queryText, const Q
         query.bindValue(i, args[i]);
     }
 
-    RESULT result = RESULT::SUCCESS;
+    RESULT result {RESULT::SUCCESS};
 
     if(!query.exec() && query.lastError().isValid())
     {
         qCritical() << query.lastError().text() << " " << query.lastQuery();
         result = RESULT::FAIL;
     }
+
     return { result, query };
 }
 }
