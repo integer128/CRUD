@@ -1,10 +1,10 @@
 ﻿#pragma once
 
-#include "crudtypes.h"
-#include "executor.h"
-
 #include <QSqlRecord>
 #include <QVariant>
+
+#include "crudtypes.h"
+#include "executor.h"
 
 namespace CRUD
 {
@@ -43,22 +43,23 @@ public:
 private:
     Executor m_executor;
 
-    QString generateQuery(const QString &tableName) const;        
+    QString generateQuery(const QString &tableName) const;
+
+    template<typename T, typename ... Args>
+    QStringList unpackArgs_toStringList(const T& first, const Args& ... args)
+    {
+        QStringList sl;
+        sl.append(first);
+        sl.append(unpackArgs_toStringList(args...));
+
+        return sl;
+    }
+
+    QStringList unpackArgs_toStringList()
+    {
+        return {};
+    }
+
 };
-
-template<typename T, typename ... Args>
-QStringList unpackArgs_toStringList(const T& first, const Args& ... args)
-{
-    QStringList sl;
-    sl.append(first);
-    sl.append(unpackArgs_toStringList(args...));
-
-    return sl;
-}
-
-QStringList unpackArgs_toStringList()
-{
-    return {};
-}
 
 }

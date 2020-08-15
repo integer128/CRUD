@@ -1,4 +1,4 @@
-#include "selector.h"
+﻿#include "selector.h"
 
 #include <QSqlRecord>
 #include <QVariant>

@@ -49,6 +49,7 @@ bool ConnectionManagerPrivate::setup()
     {
         m_state = STATE::ERROR_NO_DRIVER;
         qWarning() << driver << " is not available";
+
         return false;
     }
 
@@ -59,7 +60,7 @@ bool ConnectionManagerPrivate::setup()
         return false;
     }
 
-    auto* database {new QSqlDatabase(QSqlDatabase::addDatabase(driver))};
+    QSqlDatabase* database {new QSqlDatabase(QSqlDatabase::addDatabase(driver))};
     m_database.reset(database);
     m_database->setDatabaseName(m_databasePath);
 
@@ -71,12 +72,14 @@ bool ConnectionManagerPrivate::setup()
         return false;
     }
 
-    return setupTables();
+//    return setupTables();
+
+    return true;
 }
 
 bool ConnectionManagerPrivate::setupWorkspace()
 {
-    const QString database_name {""};
+    const QString database_name {"testdatabase.db"};
     const QString location {QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)};
     const QString fullpath {location + "/" + database_name};
 
@@ -86,11 +89,12 @@ bool ConnectionManagerPrivate::setupWorkspace()
 
     if(!database_directory.exists())
     {
-        const bool result = database_directory.mkpath(location);
+        const bool result {database_directory.mkpath(location)};
         qWarning() << "DB directory not exist, creating result: " << result;
     }
 
     qDebug() << "Database path: " << fullpath;
+
     return database_directory.exists();
 }
 
@@ -119,6 +123,7 @@ bool ConnectionManagerPrivate::setupTables()
             qWarning() << "Table successfully created! Query: \n" << query.lastQuery();
         }
     }
+
     return result;
 }
 

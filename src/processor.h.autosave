@@ -24,7 +24,7 @@ public:
 
     template <typename ... Args>
     std::pair<RESULT, std::vector<QVariantList> > getColumns(const QString &tableName, const Args& ... args)
-    {
+    {        
         return m_processorPrivate->selector.getColumns(tableName, args...);
 //        std::vector<QVariantList> result;
 //        RESULT resultState;
