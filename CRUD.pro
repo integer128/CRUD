@@ -5,7 +5,7 @@ QT -= gui
 QT += sql
 
 SOURCES += \
-        main.cpp \ \
+        main.cpp \
     src/connectionmanager.cpp \
     src/executor.cpp \
     src/manipulator.cpp \
