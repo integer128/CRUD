@@ -8,7 +8,9 @@ namespace CRUD
 
 Executor::Executor()
     : m_connectionManager(ConnectionManager::instance())
-{ }
+{
+
+}
 
 std::pair<RESULT, QSqlQuery> Executor::execute(const QString &queryText, const QVariantList &args)
 {
@@ -35,5 +37,4 @@ std::pair<RESULT, QSqlQuery> Executor::execute(const QString &queryText, const Q
 
     return { result, query };
 }
-
 }

@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <memory>
 
@@ -21,17 +21,6 @@ public:
     ~Processor();
 
     std::pair<RESULT, std::vector<QVariantList> > requestTableData(TABLES table);
-
-    template <typename ... Args>
-    std::pair<RESULT, std::vector<QVariantList> > getColumns(const QString &tableName, const Args& ... args)
-    {
-        return m_processorPrivate->selector.getColumns(tableName, args...);
-//        std::vector<QVariantList> result;
-//        RESULT resultState;
-//        std::tie(resultState, result) = m_processorPrivate->selector.getColumns(tableName, args...);
-
-//        return std::make_pair(resultState, std::move(result));
-    }
 
 private:
     std::unique_ptr<ProcessorPrivate> m_processorPrivate;
