@@ -1,6 +1,4 @@
-﻿#pragma once
-#include <QStringList>
+﻿#ifndef UNPACKINGFUNCTIONS_H
+#define UNPACKINGFUNCTIONS_H
 
-namespace CRUD
-{
-
+#endif // UNPACKINGFUNCTIONS_H

@@ -20,10 +20,10 @@ public:
     Processor();
     ~Processor();
 
-    std::pair<RESULT, std::vector<QVariantList> > requestTableData(TABLES table);
+    std::pair<RESULT, std::vector<QVariantList>> requestTableData(TABLES table);
 
     template <typename ... Args>
-    std::pair<RESULT, std::vector<QVariantList> > getColumns(const QString &tableName, const Args& ... args)
+    std::pair<RESULT, std::vector<QVariantList>> getColumns(const QString &tableName, const Args& ... args)
     {
         return m_processorPrivate->selector.getColumns(tableName, args...);
 //        std::vector<QVariantList> result;
@@ -31,6 +31,14 @@ public:
 //        std::tie(resultState, result) = m_processorPrivate->selector.getColumns(tableName, args...);
 
 //        return std::make_pair(resultState, std::move(result));
+    }
+
+    template <typename ... Args>
+    std::pair<RESULT, int> setColumns(const QString &tableName,
+                                                            const std::vector<QVariantList> &data,
+                                                            const Args& ... args)
+    {
+        return m_processorPrivate->manipulator.setColumns(tableName, data, args...);
     }
 
 private:

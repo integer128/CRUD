@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <QSqlQuery>
 
@@ -14,7 +14,23 @@ public:
 
     std::pair<RESULT, QSqlQuery> execute(const QString& queryText, const QVariantList &args = {});
 
+    template<typename T, typename ... Args>
+    static QStringList unpackArgs_toStringList(const T& first, const Args& ... args)
+    {
+        QStringList sl;
+        sl.append(first);
+        sl.append(unpackArgs_toStringList(args...));
+
+        return sl;
+    }
+
+    static QStringList unpackArgs_toStringList()
+    {
+        return {};
+    }
+
 private:
     ConnectionManager& m_connectionManager;
 };
+
 }

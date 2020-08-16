@@ -16,8 +16,8 @@ public:
     template<typename ... Args>
     std::pair<RESULT, std::vector<QVariantList> > getColumns(const QString &tableName, const Args& ... args)
     {
-        QString columnNames {unpackArgs_toStringList(args...).join(",")};   // "ColumnName1, ColumnName2, ... "
-        QString query {"SELECT " + columnNames + " FROM " + tableName};
+        const QString columnNames {Executor::unpackArgs_toStringList(args...).join(",")};   // "ColumnName1, ColumnName2, ... "
+        const QString query {"SELECT " + columnNames + " FROM " + tableName};
         std::vector<QVariantList> returnData;
         RESULT result;
         QSqlQuery resultQuery;
@@ -38,27 +38,12 @@ public:
             }
         }
         return { result, returnData };
-    }
+    }    
 
 private:
     Executor m_executor;
 
     QString generateQuery(const QString &tableName) const;
-
-    template<typename T, typename ... Args>
-    QStringList unpackArgs_toStringList(const T& first, const Args& ... args)
-    {
-        QStringList sl;
-        sl.append(first);
-        sl.append(unpackArgs_toStringList(args...));
-
-        return sl;
-    }
-
-    QStringList unpackArgs_toStringList()
-    {
-        return {};
-    }
 
 };
 

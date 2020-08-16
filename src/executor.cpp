@@ -18,7 +18,7 @@ std::pair<RESULT, QSqlQuery> Executor::execute(const QString &queryText, const Q
         return std::make_pair(RESULT::FAIL, QSqlQuery());
     }
 
-    QSqlQuery query(queryText);
+    QSqlQuery query {queryText};
 
     for(int i = 0; i < args.size(); ++i)
     {
